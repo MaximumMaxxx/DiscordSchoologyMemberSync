@@ -1,22 +1,20 @@
 from dataclasses import dataclass
-from dotenv import load_dotenv
-import discord
-import schoolopy
 import os
 import logging
 import json as js
 import re
 
+from dotenv import load_dotenv
+import schoolopy
+import discord
+from discord import option
+
+
 logging.basicConfig(level=logging.WARNING, filename="log.log")
-
 load_dotenv()
-
 bot = discord.Bot()
-
-# Initialize the API session
 sc = schoolopy.Schoology(schoolopy.Auth(
     os.environ.get("apiKey"), os.environ.get("apiSecret")))
-# Change the member limit so you can get everyhing in one api call, there are better ways to handle this but just increasing the value works for now
 sc.limit = os.environ.get("schoologyMemberLimit")
 
 
@@ -41,11 +39,10 @@ class schoologyUser():
 async def on_ready():
     print("----------------------")
     print("Bot is ready")
-
     await bot.change_presence(activity=discord.Activity(name="Syncing schoology since like ... ealrier this week"))
 
 
-@bot.slash_command(guilds=[935274828003418122])
+@bot.slash_command()
 async def fetchpeople(ctx: discord.ApplicationContext):
     await ctx.respond("Working on that... please wait")
     print("Fetching people...")
@@ -62,10 +59,9 @@ async def fetchpeople(ctx: discord.ApplicationContext):
         for i in range(1, len(membersSplit)):
             await ctx.send(membersSplit[i])
 
-
-@bot.slash_command(guilds=[935274828003418122])
-async def ping(ctx: discord.ApplicationContext):
-    ctx.respond("I am alive")
+@bot.slash_command()
+async def syncmember(ctx, member: discord.member.Member = option("member", None, description="Who do you want to assign")):
+    pass
 
 
 def fetchpeople() -> list[schoologyUser]:
