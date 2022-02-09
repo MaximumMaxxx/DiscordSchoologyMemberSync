@@ -1,3 +1,7 @@
+<h1 strle="text-align:center">This repository has been archieved. The code should be mostly functional however I've realized that I don't actually need the functionality. Feel free to fork and work on this more I just don't have any need to continue</h1>
+
+
+
 <h1 style="text-align:center">DiscordSchoologyMemberSync</h1>
 
 <img src="./resources/Stacked%20logos.png" style="width: 400px; height: 400px; margin: auto; display:block; border-radius: 20px;">
